@@ -40,7 +40,7 @@
             $fileNew = $img2;
         }
 
-        $sql = $conn->prepare("UPDATE bbcal SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, setupdate = :setupdate, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email WHERE id = :id");
+        $sql = $conn->prepare("UPDATE bbcal1 SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, setupdate = :setupdate, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":customername", $customername);
         $sql->bindParam(":testmachine", $testmachine);
@@ -109,7 +109,7 @@
             <?php
                 if (isset($_GET['id'])) {
                         $id = $_GET['id'];
-                        $stmt = $conn->query("SELECT * FROM bbcal WHERE id = $id");
+                        $stmt = $conn->query("SELECT * FROM bbcal1 WHERE id = $id");
                         $stmt->execute();
                         $data = $stmt->fetch();
                 }

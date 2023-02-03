@@ -40,7 +40,7 @@ if (isset($_POST['update'])) {
         }
 
 }
-        $sql = $conn->prepare("UPDATE bbcal SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, setupdate = :setupdate, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email, img = :img WHERE id = :id");
+        $sql = $conn->prepare("UPDATE bbcal1 SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, setupdate = :setupdate, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email, img = :img WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":customername", $customername);
         $sql->bindParam(":testmachine", $testmachine);

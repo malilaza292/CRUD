@@ -8,7 +8,7 @@
 
     if (isset($_GET['delete'])) {
         $delete_id = $_GET['delete'];
-        $deletestmt = $conn->query("DELETE FROM bbcal WHERE id = $delete_id");
+        $deletestmt = $conn->query("DELETE FROM bbcal1 WHERE id = $delete_id");
         $deletestmt->execute();
 
         if ($deletestmt) {
@@ -18,7 +18,10 @@
         }
         
     }
-
+?>
+<?php
+    $current_date = date("Y-m-d");
+    $query = "SELECT * FROM bbcal1 WHERE nextcal <= '$current_date' ORDER BY nextCal ASC";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,19 +32,13 @@
     <title>BBCAL DATA</title>
 
     <!-- CSS only -->
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-    <div class="col-md-8">
-             <form>
-		<input type="text" name="name" class="question" id="search" class="form-control" required autocomplete="off" />
-		<label for="search"><span>ใส่ชื่อบริษัท หรือ ชื่อเครื่องได้ที่ช่องนี้</span></label>
-	  </form>
-</div>
-</div>
-</div>
     <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -108,17 +105,37 @@
         </div>
     </div>
     </div>
-    <!-- TEST -->
-  <!-- TEST -->
+
+  <!-- Header -->
+<div class="navbar">
+    <div class="navbar-left">
+        <h1>BBCALDATA</h1>
+    </div>
+    <div class="navbar-right">
+        <div class="button-right">
+            <div class="justify-content-end add-data">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo">เพิ่มข้อมูล</button>
+                <button type="button1" class="btn btn-warning" data-bs-target="#">ปฏิทิน *ComingSoon*</button>
+            </div>        
+        </div>
+    </div>
+</div>
+<!-- Header -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <h1>BBCAL Data</h1>
             </div>
-            <div class="col-md-6 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo">เพิ่มข้อมูล</button>
-            </div>
-        </div>
+        </div>    
+            <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8">
+             <form>
+		<input type="text" name="name" class="question" id="search" class="form-control" required autocomplete="off" />
+		<label for="search"><span>ค้นหาข้อมูล</span></label>
+	  </form>
+</div>
+</div>
+</div>
         <hr>
         <?php if (isset($_SESSION['success'])) { ?>
             <div class="alert alert-success">
@@ -141,34 +158,29 @@
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Company name</th>
-                    <th scope="col">Machine name</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">Serial Number</th>
-                    <th scope="col">Brand</th>
-                    <th scope="col">Setup Date</th>
-                    <th scope="col">Calibration Date</th>
-                    <th scope="col">Next Calibration</th>
-                    <th scope="col">Calibration Frequency</th>
-                    <th scope="col">email</th>
-                    <th scope="col">Img</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" width=15%>Company name</th>
+                    <th scope="col" width=15%>Machine name</th>
+                    <th scope="col" width=15%>Model</th>
+                    <th scope="col" width=15%>Serial Number</th>
+                    <th scope="col" width=15%>Brand</th>
+                    <th scope="col" width=15%>Setup Date</th>
+                    <th scope="col" width=15%>Calibration Date</th>
+                    <th scope="col" width=15%>Next Calibration</th>
+                    <th scope="col" width=15%>Calibration Frequency</th>
+                    <th scope="col" width=15%>email</th>
+                    <th scope="col" width=15%>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                    $stmt = $conn->query("SELECT * FROM bbcal");
+                    $stmt = $conn->query("SELECT * FROM bbcal1");
                     $stmt->execute();
-                    $bbcal = $stmt->fetchAll();
+                    $bbcal1 = $stmt->fetchAll();
 
-                    if (!$bbcal) {
+                    if (!$bbcal1) {
                         echo "<p><td colspan='6' class='text-center'>No data available</td></p>";
                     } else {
-                    foreach($bbcal as $user)  {  
-                ?>
-                <?php
-            $current_date = date('Y-m-d');
-            $sql = "SELECT * FROM bbcal ORDER BY DAY(Nextcal) DESC ";
+                    foreach($bbcal1 as $user)  {  
                 ?>
                     <tr>
                         <th scope="row"><?php echo $user['id']; ?></th>
@@ -177,13 +189,31 @@
                         <td><?php echo $user['model']; ?></td>
                         <td><?php echo $user['serialnum']; ?></td>
                         <td><?php echo $user['brand']; ?></td>
-                        <td><?php echo date('d-m-Y', strtotime($user['setupdate'])); ?></td>
-                        <td><?php echo date('d-m-Y', strtotime($user['calidate'])); ?></td>
-                        <td><?php echo date('d-m-Y', strtotime($user['nextcal'])); ?></td>
+                        <td><?php 
+                          if ($user['setupdate'] == ''){
+                            echo '';
+                          }else{
+                            echo date('d-m-Y', strtotime($user['setupdate']));
+                          }
+                        ?></td>
+                        <td><?php 
+                          if ($user['calidate'] == ''){
+                            echo '';
+                          }else{
+                            echo date('d-m-Y', strtotime($user['calidate']));
+                          }
+                        ?></td>
+                        <td><?php 
+                          if ($user['nextcal'] == ''){
+                            echo '';
+                          }else{
+                            echo date('d-m-Y', strtotime($user['nextcal']));
+                          }
+                        ?> </td>
                         <td><?php echo $user['califreq']; ?></td>
-                        <td><?php echo $user['email']; ?></td>
-                        <td width="250px"><img class="rounded" width="50%" src="uploads/<?php echo $user['img']; ?>" alt=""></td>
+                        <td><?php echo $user['email']; ?></td>  
                         <td>
+                            <a class="btn btn-success" type="submit" href="mailto:<?php echo $user['email']?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']?> เครื่อง <?php echo $user['testmachine']?> %20%0Aจะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบขอบคุณ %20%0Aโดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบ %20%0Aติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587" value="'.$id.'">ส่งข้อมูล</a>
                             <a href="edit.php?id=<?php echo $user['id']; ?>" class="btn btn-warning">Edit</a>
                             <a data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>" class="btn btn-danger delete-btn">Delete</a>
                         </td>
@@ -257,16 +287,6 @@ $("#search").on("keyup", function() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
   });
-
-  $(document).ready(function(){
-    $("#plus-button").mouseenter(function(){
-        $(this).addClass("expanded");
-    });
-    $("#plus-button").mouseleave(function(){
-        $(this).removeClass("expanded");
-    });
-});
-
     </script>
 </body>
 </html>

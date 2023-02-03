@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
         if (in_array($fileActExt, $allow)) {
             if ($img['size'] > 0 && $img['error'] == 0) {
                 if (move_uploaded_file($img['tmp_name'], $filePath)) {
-                    $sql = $conn->prepare("INSERT INTO bbcal(customername, testmachine, model, serialnum, brand, setupdate, calidate, nextcal, califreq, email, img) 
+                    $sql = $conn->prepare("INSERT INTO bbcal1(customername, testmachine, model, serialnum, brand, setupdate, calidate, nextcal, califreq, email, img) 
                     VALUES                                  (:customername, :testmachine, :model, :serialnum, :brand, :setupdate, :calidate, :nextcal, :califreq, :email, :img)");
                     $sql->bindParam(":customername", $customername);
                     $sql->bindParam(":testmachine", $testmachine);
