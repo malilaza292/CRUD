@@ -16,19 +16,10 @@ if (isset($_POST['submit'])) {
     $nextcal = $_POST['nextcal'];
     $califreq = $_POST['califreq'];
     $email = $_POST['email'];
-    $img = $_FILES['img'];
 
-        $allow = array('jpg', 'jpeg', 'png');
-        $extension = explode('.', $img['name']);
-        $fileActExt = strtolower(end($extension));
-        $fileNew = rand() . "." . $fileActExt;  // rand function create the rand number 
-        $filePath = 'uploads/'.$fileNew;
 
-        if (in_array($fileActExt, $allow)) {
-            if ($img['size'] > 0 && $img['error'] == 0) {
-                if (move_uploaded_file($img['tmp_name'], $filePath)) {
-                    $sql = $conn->prepare("INSERT INTO bbcal1(customername, testmachine, model, serialnum, brand, setupdate, calidate, nextcal, califreq, email, img) 
-                    VALUES                                  (:customername, :testmachine, :model, :serialnum, :brand, :setupdate, :calidate, :nextcal, :califreq, :email, :img)");
+                    $sql = $conn->prepare("INSERT INTO bbcal1(customername, testmachine, model, serialnum, brand, setupdate, calidate, nextcal, califreq, email) 
+                    VALUES                                  (:customername, :testmachine, :model, :serialnum, :brand, :setupdate, :calidate, :nextcal, :califreq, :email)");
                     $sql->bindParam(":customername", $customername);
                     $sql->bindParam(":testmachine", $testmachine);
                     $sql->bindParam(":model", $model);
@@ -39,7 +30,6 @@ if (isset($_POST['submit'])) {
                     $sql->bindParam(":nextcal", $nextcal);
                     $sql->bindParam(":califreq", $califreq);
                     $sql->bindParam(":email", $email);
-                    $sql->bindParam(":img", $fileNew);
                     $sql->execute();
 
                     if ($sql) {
@@ -61,9 +51,5 @@ if (isset($_POST['submit'])) {
                         header("location: index.php");
                     }
                 }
-            }
-        }
-}
-
 
 ?>

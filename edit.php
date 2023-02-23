@@ -18,27 +18,6 @@
         $nextcal = $_POST['nextcal'];
         $califreq = $_POST['califreq'];
         $email = $_POST['email'];
-        $img = $_FILES['img'];
-
-        $img2 = $_POST['img2'];
-        $upload = $_FILES['img']['name'];
-
-        if ($upload != '') {
-            $allow = array('jpg', 'jpeg', 'png');
-            $extension = explode('.', $img['name']);
-            $fileActExt = strtolower(end($extension));
-            $fileNew = rand() . "." . $fileActExt;  // rand function create the rand number 
-            $filePath = 'uploads/'.$fileNew;
-
-            if (in_array($fileActExt, $allow)) {
-                if ($img['size'] > 0 && $img['error'] == 0) {
-                   move_uploaded_file($img['tmp_name'], $filePath);
-                }
-            }
-
-        } else {
-            $fileNew = $img2;
-        }
 
         $sql = $conn->prepare("UPDATE bbcal1 SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, setupdate = :setupdate, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email WHERE id = :id");
         $sql->bindParam(":id", $id);
@@ -52,7 +31,6 @@
         $sql->bindParam(":nextcal", $nextcal);
         $sql->bindParam(":califreq", $califreq);
         $sql->bindParam(":email", $email);
-        $sql->bindParam(":img", $fileNew);
         $sql->execute();
 
         if ($sql) {
@@ -117,16 +95,15 @@
                 <div class="mb-3">
                     <label for="id" class="col-form-label">ID:</label>
                     <input type="text" readonly value="<?php echo $data['id']; ?>" required class="form-control" name="id" >
-                    <label for="customername" class="col-form-label">Customer Name:</label>
+                    <label for="customername" class="col-form-label">ชื่อบริษัท:</label>
                     <input type="text" value="<?php echo $data['customername']; ?>" required class="form-control" name="customername" >
-                    <input type="hidden" value="<?php echo $data['img']; ?>" required class="form-control" name="img2" >
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Test Machine:</label>
+                    <label for="customername" class="col-form-label">ชื่อเครื่องมือ:</label>
                     <input type="text" value="<?php echo $data['testmachine']; ?>" required class="form-control" name="testmachine">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Model:</label>
+                    <label for="customername" class="col-form-label">ชื่อโมเดล:</label>
                     <input type="text" value="<?php echo $data['model']; ?>" required class="form-control" name="model">
                 </div>
                 <div class="mb-3">
@@ -134,51 +111,33 @@
                     <input type="text" value="<?php echo $data['serialnum']; ?>" required class="form-control" name="serialnum">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Brand:</label>
+                    <label for="customername" class="col-form-label">แบรนด์:</label>
                     <input type="text" value="<?php echo $data['brand']; ?>" required class="form-control" name="brand">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Setup date:</label>
+                    <label for="customername" class="col-form-label">วันที่ติดตั้ง:</label>
                     <input type="date" value="<?php echo date('d-m-Y', strtotime( $data['setupdate'])); ?>" required class="form-control" name="setupdate">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Calibration Date:</label>
+                    <label for="customername" class="col-form-label">วันสอบเทียบล่าสุด:</label>
                     <input type="date" value="<?php echo date('d-m-Y', strtotime( $data['calidate'])); ?>" required class="form-control" name="calidate">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Next Calibration:</label>
+                    <label for="customername" class="col-form-label">วันสอบเทียบครั้งต่อไป:</label>
                     <input type="date" value="<?php echo date('d-m-Y', strtotime( $data['nextcal'])); ?>" required class="form-control" name="nextcal">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Calibration Frequency:</label>
+                    <label for="customername" class="col-form-label">ความถี่ในการสอบเทียบ:</label>
                     <input type="text" value="<?php echo $data['califreq']; ?>" required class="form-control" name="califreq">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Email:</label>
+                    <label for="customername" class="col-form-label">อีเมล์:</label>
                     <input type="text" value="<?php echo $data['email']; ?>" required class="form-control" name="email">
-                </div>
-                <div class="mb-3">
-                    <label for="img" class="col-form-label">Image:</label>
-                    <input type="file" class="form-control" id="imgInput" name="img">
-                    <img width="100%" src="uploads/<?php echo $data['img']; ?>" id="previewImg" alt="">
                 </div>
                 <hr>
                 <a href="index.php" class="btn btn-secondary">Go Back</a>
                 <button type="submit" name="update" class="btn btn-primary">Update</button>
             </form>
     </div>
-
-    <script>
-        let imgInput = document.getElementById('imgInput');
-        let previewImg = document.getElementById('previewImg');
-
-        imgInput.onchange = evt => {
-            const [file] = imgInput.files;
-                if (file) {
-                    previewImg.src = URL.createObjectURL(file)
-            }
-        }
-
-    </script>
 </body>
 </html>

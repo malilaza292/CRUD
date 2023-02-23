@@ -19,10 +19,6 @@
         
     }
 ?>
-<?php
-    $current_date = date("Y-m-d");
-    $query = "SELECT * FROM bbcal1 WHERE nextcal <= '$current_date' ORDER BY nextCal ASC";
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +26,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBCAL DATA</title>
-
     <!-- CSS only -->
     <link rel="stylesheet" href="css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,15 +34,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
+
     <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            
             <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body">    
             <form action="insert.php" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="customername" class="col-form-label">Company name:</label>
@@ -82,26 +77,19 @@
                     <input type="date" required class="form-control" name="nextcal">
                 </div>
                 <div class="mb-3">
-                    <label for="firstname" class="col-form-label">Calibration Frequency:</label>
+                    <label for="customername" class="col-form-label">Calibration Frequency:</label>
                     <input type="text" required class="form-control" name="califreq">
                 </div>
                 <div class="mb-3">
-                    <label for="firstname" class="col-form-label">Email:</label>
+                    <label for="customername" class="col-form-label">Email:</label>
                     <input type="text" required class="form-control" name="email">
                 </div>
-                <div class="mb-3">
-                    <label for="img" class="col-form-label">Image:</label>
-                    <input type="file" required class="form-control" id="imgInput" name="img">
-                    <img loading="lazy" width="100%" id="previewImg" alt="">
-                </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" name="submit" class="btn btn-success">Submit</button>
                 </div>
             </form>
         </div>
-        
         </div>
     </div>
     </div>
@@ -109,32 +97,33 @@
   <!-- Header -->
 <div class="navbar">
     <div class="navbar-left">
+        <div class="content">
         <h1>BBCALDATA</h1>
+        <h1>BBCALDATA</h1>
+        </div>
     </div>
     <div class="navbar-right">
         <div class="button-right">
-            <div class="justify-content-end add-data">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo">เพิ่มข้อมูล</button>
+            <div class="justify-content-end add-data">               
+                <button type="button"  class="btn btn-success"data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo">เพิ่มข้อมูล</button>
                 <button type="button1" class="btn btn-warning" data-bs-target="#">ปฏิทิน *ComingSoon*</button>
             </div>        
         </div>
     </div>
 </div>
-<!-- Header -->
+
+<div>
+     <div class="wave"></div>
+     <div class="wave"></div>
+     <div class="wave"></div>
+  </div>
+<!-- End Header -->
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-            </div>
-        </div>    
             <div class="container-fluid">
-    <div class="row">
-    <div class="col-md-8">
              <form>
 		<input type="text" name="name" class="question" id="search" class="form-control" required autocomplete="off" />
 		<label for="search"><span>ค้นหาข้อมูล</span></label>
 	  </form>
-</div>
-</div>
 </div>
         <hr>
         <?php if (isset($_SESSION['success'])) { ?>
@@ -154,21 +143,24 @@
             </div>
         <?php } ?>
 
-        <table class="table">
+        <main class="table">
+        <section class="table_header">
+            <h1>Customer's Data</h1>
+        </section>
+        <section class="table_body">
+            <table>
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col" width=15%>Company name</th>
-                    <th scope="col" width=15%>Machine name</th>
-                    <th scope="col" width=15%>Model</th>
-                    <th scope="col" width=15%>Serial Number</th>
-                    <th scope="col" width=15%>Brand</th>
-                    <th scope="col" width=15%>Setup Date</th>
-                    <th scope="col" width=15%>Calibration Date</th>
-                    <th scope="col" width=15%>Next Calibration</th>
-                    <th scope="col" width=15%>Calibration Frequency</th>
-                    <th scope="col" width=15%>email</th>
-                    <th scope="col" width=15%>Actions</th>
+                    <th>Company name</th>
+                    <th>Machine name</th>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Brand</th>  
+                    <th>Calibration Date</th>
+                    <th style="color:red">Next Calibration</th>
+                    <th>Calibration Frequency</th>
+                    <th>Email</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -183,19 +175,11 @@
                     foreach($bbcal1 as $user)  {  
                 ?>
                     <tr>
-                        <th scope="row"><?php echo $user['id']; ?></th>
                         <td><?php echo $user['customername']; ?></td>
                         <td><?php echo $user['testmachine']; ?></td>
                         <td><?php echo $user['model']; ?></td>
                         <td><?php echo $user['serialnum']; ?></td>
                         <td><?php echo $user['brand']; ?></td>
-                        <td><?php 
-                          if ($user['setupdate'] == ''){
-                            echo '';
-                          }else{
-                            echo date('d-m-Y', strtotime($user['setupdate']));
-                          }
-                        ?></td>
                         <td><?php 
                           if ($user['calidate'] == ''){
                             echo '';
@@ -203,24 +187,33 @@
                             echo date('d-m-Y', strtotime($user['calidate']));
                           }
                         ?></td>
-                        <td><?php 
+                        <td style="color:red"><?php 
                           if ($user['nextcal'] == ''){
                             echo '';
                           }else{
                             echo date('d-m-Y', strtotime($user['nextcal']));
                           }
-                        ?> </td>
+                        ?></td>
                         <td><?php echo $user['califreq']; ?></td>
                         <td><?php echo $user['email']; ?></td>  
                         <td>
-                            <a class="btn btn-success" type="submit" href="mailto:<?php echo $user['email']?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']?> เครื่อง <?php echo $user['testmachine']?> %20%0Aจะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบขอบคุณ %20%0Aโดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบ %20%0Aติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587" value="'.$id.'">ส่งข้อมูล</a>
-                            <a href="edit.php?id=<?php echo $user['id']; ?>" class="btn btn-warning">Edit</a>
-                            <a data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>" class="btn btn-danger delete-btn">Delete</a>
+                            <div class="dropdown">
+                                <div class="select">
+                                    <span>Menu</span>
+                                    <i class="fa fa-chevron-left"></i>
+                                </div>
+                                <input type="hidden" name="option">
+                                <ul class="dropdown-menu">
+                            <li><a class="dropdown-items" type="submit" href="mailto:<?php echo $user['email']?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']?> เครื่อง <?php echo $user['testmachine']?> %20%0Aจะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบขอบคุณ %20%0Aโดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบ %20%0Aติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587" value="'.$id.'">ส่งข้อมูล</a></li>
+                            <li><a class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a></li>
+                            <li><a class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</a></li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 <?php }  } ?>
-            </tbody>
-            </table>
+        </section>
+        </main>
     </div>
 
     <!-- JavaScript Bundle with Popper -->
@@ -229,29 +222,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <script>
-        let imgInput = document.getElementById('imgInput');
-        let previewImg = document.getElementById('previewImg');
-
-        imgInput.onchange = evt => {
-            const [file] = imgInput.files;
-            if (file) {
-                previewImg.src = URL.createObjectURL(file);
-            }
-        }
-
         $(".delete-btn").click(function(e) {
             var userId = $(this).data('id');
             e.preventDefault();
             deleteConfirm(userId);
         })
-
         function deleteConfirm(userId) {
             Swal.fire({
                 title: 'โปรดยืนยัน?',
                 text: "ข้อมูลในตารางนี้จะหายไป!",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
                 cancelButtonText: 'ไม่ข้าทำไม่ได้',
                 confirmButtonText: 'ใช่, ลบเลย ลบเลย!',
                 showLoaderOnConfirm: true,
@@ -287,6 +269,39 @@ $("#search").on("keyup", function() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
   });
+/*Dropdown Menu*/
+$('.dropdown').click(function () {
+        $(this).attr('tabindex', 1).focus();
+        $(this).toggleClass('active');
+        $(this).find('.dropdown-menu').slideToggle(300);
+    });
+    $('.dropdown').focusout(function () {
+        $(this).removeClass('active');
+        $(this).find('.dropdown-menu').slideUp(300);
+    });
+/*End Dropdown Menu*/
+// follow cursor
+const cursor = document.querySelector(".cursor");
+var timeout;
+
+document.addEventListener("mousemove", (e)=>{
+    let x = e.clientX;
+    let y = e.clientY;
+
+    cursor.style.top = y + "px";
+    cursor.style.left = x + "px";
+    cursor.style.display = "block";
+    
+    function mouseStopped(){
+        cursor.style.display = "none";
+    }
+    clearTimeout(timeout);
+    timeout = setTimeout(mouseStopped, 1000);
+});
+// cursor effects
+document.addEventListener("mouseout", () =>{
+    cursor.style.display = "none";
+});
     </script>
 </body>
 </html>
