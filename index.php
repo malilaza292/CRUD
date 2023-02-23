@@ -204,9 +204,9 @@
                                 </div>
                                 <input type="hidden" name="option">
                                 <ul class="dropdown-menu">
-                            <li><a class="dropdown-items" type="submit" href="mailto:<?php echo $user['email']?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']?> เครื่อง <?php echo $user['testmachine']?> %20%0Aจะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบขอบคุณ %20%0Aโดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบ %20%0Aติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587" value="'.$id.'">ส่งข้อมูล</a></li>
-                            <li><a class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a></li>
-                            <li><a class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</a></li>
+                            <li class="dropdown-items" type="submit" href="mailto:<?php echo $user['email']?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']?> เครื่อง <?php echo $user['testmachine']?> %20%0Aจะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบขอบคุณ %20%0Aโดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบ %20%0Aติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587" value="'.$id.'">ส่งข้อมูล</li>
+                            <li class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</li>
+                            <li class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</li>
                                 </ul>
                             </div>
                         </td>
@@ -280,28 +280,6 @@ $('.dropdown').click(function () {
         $(this).find('.dropdown-menu').slideUp(300);
     });
 /*End Dropdown Menu*/
-// follow cursor
-const cursor = document.querySelector(".cursor");
-var timeout;
-
-document.addEventListener("mousemove", (e)=>{
-    let x = e.clientX;
-    let y = e.clientY;
-
-    cursor.style.top = y + "px";
-    cursor.style.left = x + "px";
-    cursor.style.display = "block";
-    
-    function mouseStopped(){
-        cursor.style.display = "none";
-    }
-    clearTimeout(timeout);
-    timeout = setTimeout(mouseStopped, 1000);
-});
-// cursor effects
-document.addEventListener("mouseout", () =>{
-    cursor.style.display = "none";
-});
     </script>
 </body>
 </html>

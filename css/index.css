@@ -252,6 +252,7 @@ body{
 	  overflow-y: auto;
 	  z-index: 9;
 	  min-width: 0rem;
+	  text-align: center;
   }
   .dropdown .dropdown-menu li {
 	  padding: 10px;
@@ -261,6 +262,7 @@ body{
   .dropdown .dropdown-menu {
 	  padding: 0;
 	  list-style: none
+	  
   }
   .dropdown .dropdown-menu li:hover {
 	  background-color: #525050
@@ -342,7 +344,7 @@ td{
 	 
 }
 table,th,td{
-	padding: 1rem;
+	padding: 1.4rem;
 }
 /* TABLE BODY */
 /* a link */
