@@ -118,13 +118,7 @@
      <div class="wave"></div>
   </div>
 <!-- End Header -->
-    <div class="container mt-5">
-            <div class="container-fluid">
-             <form>
-		<input type="text" name="name" class="question" id="search" class="form-control" required autocomplete="off" />
-		<label for="search"><span>ค้นหาข้อมูล</span></label>
-	  </form>
-</div>
+    <div class="container md-5">
         <hr>
         <?php if (isset($_SESSION['success'])) { ?>
             <div class="alert alert-success">
@@ -143,9 +137,23 @@
             </div>
         <?php } ?>
 
-        <main class="table">
+        <main class="table" id="customers_table">
         <section class="table_header">
             <h1>Customer's Data</h1>
+            <div class="input-group">
+                <input id="search" type="search" placeholder="Search Data..." required autocomplete="off" no-close-icon>
+                <img src="photo/search.svg">
+            </div>
+            <div class="export_file">
+                <label for="export_file" class="export_file-btn" title="Export File"></label>
+                <input type="checkbox" id="export_file">
+                <div class="export_file-options">
+                    <label>นำข้อมูลออก &nbsp; &#10140;</label>
+                    <label for="export-file" id="toPDF">PDF<img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt=""></label>
+                    <label for="export-file" id="toCSV">CSV <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/CsvDelimited001.svg" alt=""></label>
+                    <label for="export-file" id="toEXCEL">EXCEL <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt=""></label>
+                </div>
+            </div>
         </section>
         <section class="table_body">
             <table>
@@ -155,7 +163,7 @@
                     <th>Machine name</th>
                     <th>Model</th>
                     <th>Serial Number</th>
-                    <th>Brand</th>  
+                    <th>Brand</th>
                     <th>Calibration Date</th>
                     <th style="color:red">Next Calibration</th>
                     <th>Calibration Frequency</th>
@@ -217,69 +225,9 @@
     </div>
 
     <!-- JavaScript Bundle with Popper -->
+    <script type="text/javascript" src="js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <script>
-        $(".delete-btn").click(function(e) {
-            var userId = $(this).data('id');
-            e.preventDefault();
-            deleteConfirm(userId);
-        })
-        function deleteConfirm(userId) {
-            Swal.fire({
-                title: 'โปรดยืนยัน?',
-                text: "ข้อมูลในตารางนี้จะหายไป!",
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                cancelButtonText: 'ไม่ข้าทำไม่ได้',
-                confirmButtonText: 'ใช่, ลบเลย ลบเลย!',
-                showLoaderOnConfirm: true,
-                preConfirm: function() {
-                    return new Promise(function(resolve) {
-                        $.ajax({
-                                url: 'index.php',
-                                type: 'GET',
-                                data: 'delete=' + userId,
-                            })
-                            .done(function() {
-                                Swal.fire({
-                                    title: 'success',
-                                    text: 'ลบเสร็จสิ้น!',
-                                    icon: 'success',
-                                }).then(() => {
-                                    document.location.href = 'index.php';
-                                })
-                            })
-                            .fail(function() {
-                                Swal.fire('Oops...', 'Something went wrong with ajax !', 'error')
-                                window.location.reload();
-                            });
-                    });
-                },
-            });
-        }
-    
-$("#search").on("keyup", function() {
-  value = $(this).val().toLowerCase();
-  var value = $(this).val().toLowerCase();
-  $(".table tbody tr").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-  });
-  });
-/*Dropdown Menu*/
-$('.dropdown').click(function () {
-        $(this).attr('tabindex', 1).focus();
-        $(this).toggleClass('active');
-        $(this).find('.dropdown-menu').slideToggle(300);
-    });
-    $('.dropdown').focusout(function () {
-        $(this).removeClass('active');
-        $(this).find('.dropdown-menu').slideUp(300);
-    });
-/*End Dropdown Menu*/
-    </script>
 </body>
 </html>
