@@ -102,6 +102,7 @@
                     <th>Calibration Date</th>
                     <th>Calibration Frequency</th>
                     <th>Next Calibration</th>
+                    <th>Email</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -137,6 +138,7 @@
                             echo date('d-m-Y', strtotime($user['nextcal']));
                           }
                         ?></td>
+                        <td><?php echo $user['email']; ?></td>  
                         <td>
                             <div class="dropdown">
                                 <div class="select">
