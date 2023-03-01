@@ -2,7 +2,7 @@
 body{
 	background-color: rgb(99, 162, 210);
 	margin: auto;
-	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	font-family: 'Thai Sarabun', sans-serif;
 	overflow: auto;
 	background: rgb(34,108,91);
 	background: radial-gradient(circle, rgb(106, 128, 177) 0%, rgb(100, 99, 186) 35%, rgb(95, 110, 196) 59%, rgb(103, 150, 217) 100%);
@@ -99,7 +99,7 @@ body{
 	margin:10px;
   }
   /* บนมุมขวา */
-  button{
+  .button{
 	display:inline-block;
 	width: 3.5rem;
 	height: 3.5rem;
