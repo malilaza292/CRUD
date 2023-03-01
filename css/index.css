@@ -145,7 +145,7 @@ a:hover {
 	  box-shadow: 0 0 4px rgb(204, 204, 204)
   }
   .dropdown:active {
-	  background-color: #8dec99
+	  background-color: #b4f6bd
   }
   .dropdown.active:hover,
   .dropdown.active {
@@ -277,9 +277,9 @@ th {
 /* TABLE HEADER SEARCH */
 /* TABLE BODY */
 .table_body{
-	width: 95%;
+	width: 97%;
 	max-height: calc(89% - 1.6rem);
-	background-color: rgba(255, 255, 255, 0.589);
+	background-color: rgba(255, 255, 255, 0.769);
 	margin: .5rem auto;
 	border-radius: .6rem;
 
@@ -325,6 +325,10 @@ table,th,td{
 	padding: 1.4rem;
 	text-align: left;
 }
+tr:nth-child(-n+3) {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+  }
 /* TABLE BODY */
 /* TABLE BODY HIDE */
 tbody tr.hide{

@@ -25,9 +25,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBCAL DATA</title>
+    <title>BBCALDATA</title>
     <!-- CSS only -->
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
@@ -141,7 +141,7 @@
         <section class="table_header">
             <h1>Customer's Data</h1>
             <div class="input-group">
-                <input id="search" type="search" placeholder="Search Data..." required autocomplete="off" no-close-icon>
+                <input id="search " type="search" placeholder="Search Data..." required autocomplete="off" no-close-icon>
                 <img src="photo/search.svg">
             </div>
             <div class="export_file">
@@ -157,7 +157,7 @@
         </section>
         <section class="table_body">
             <table>
-            <thead>
+            <thead class="thead">
                 <tr>
                     <th>Company name</th>
                     <th>Machine name</th>
@@ -165,9 +165,8 @@
                     <th>Serial Number</th>
                     <th>Brand</th>
                     <th>Calibration Date</th>
-                    <th style="color:red">Next Calibration</th>
                     <th>Calibration Frequency</th>
-                    <th>Email</th>
+                    <th>Next Calibration</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -195,6 +194,7 @@
                             echo date('d-m-Y', strtotime($user['calidate']));
                           }
                         ?></td>
+
                         <td style="color:red"><?php 
                           if ($user['nextcal'] == ''){
                             echo '';
@@ -203,7 +203,6 @@
                           }
                         ?></td>
                         <td><?php echo $user['califreq']; ?></td>
-                        <td><?php echo $user['email']; ?></td>  
                         <td>
                             <div class="dropdown">
                                 <div class="select">
@@ -212,9 +211,40 @@
                                 </div>
                                 <input type="hidden" name="option">
                                 <ul class="dropdown-menu">
-                            <a class="dropdown-items" type="submit" href="mailto:<?php echo $user['email']?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']?> เครื่อง <?php echo $user['testmachine']?> %20%0Aจะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบขอบคุณ %20%0Aโดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบ %20%0Aติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587" value="'.$id.'">ส่งข้อมูล</a>
-                            <a class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a>
-                            <a class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</a>
+                                <a  class="dropdown-items" href="mailto:<?php echo $user['email']; ?>?
+                                            &Subject=(เรียนเพื่อทราบ)
+                                            &body= ชื่อบริษัท  : <?php echo $user['customername']?>
+                                            
+                                        
+                                            <?php
+                                                $customers = $user['customername'];
+                                                $current_date = date("d/m/Y");
+                                                // echo "%20%0A ชื่อเครื่อง %09%09";
+                                                // echo " โมเดล %09%09";
+                                                // echo " รหัสเครื่อง %09%09";
+                                                // customername = '{$customers}'
+                                                $stmt1 = $conn->query("SELECT * FROM bbcal1 WHERE CURRENT_TIMESTAMP BETWEEN datealert AND nextcal and  customername = '{$customers}';");
+                                                $stmt1->execute();
+                                                $project_info = $stmt1->fetchAll();
+                                                foreach($project_info as $rows) {
+                                                    // echo "%20%0A" . $rows['testmachine'] . "%09%09" . $rows['model']  . "%09%09" .  $rows['serialnum'];
+                                                    echo "%20%20%0A ชื่อเครื่อง :" . " " ;
+                                                    echo $rows['testmachine'] . ", &nbsp;&nbsp;"; 
+                                                    echo "โมเดล :". $rows['model'] . ",  &nbsp;&nbsp;"; 
+                                                    echo "รหัสเครื่อง :". $rows['serialnum'] . ",  &nbsp;&nbsp;"; 
+                                                    echo "ยี่ห้อ :" . $rows['brand'] . " "  ; 
+                                                }
+                                            ?>
+                                                
+                                            %20%0A จะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบ โดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบเครื่องมือ 
+                                            %20%0A ติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000
+                                            %20%0A เบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587
+                                            ">
+                                        ส่งอีเมล์
+                                    </a>     
+
+                                <a class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a>
+                                <a class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</a>
                                 </ul>
                             </div>
                         </td>
