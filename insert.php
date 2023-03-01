@@ -11,21 +11,19 @@ if (isset($_POST['submit'])) {
     $model = $_POST['model'];
     $serialnum = $_POST['serialnum'];
     $brand = $_POST['brand'];
-    $setupdate = $_POST['setupdate'];
     $calidate = $_POST['calidate'];
     $nextcal = $_POST['nextcal'];
     $califreq = $_POST['califreq'];
     $email = $_POST['email'];
 
 
-                    $sql = $conn->prepare("INSERT INTO bbcal1(customername, testmachine, model, serialnum, brand, setupdate, calidate, nextcal, califreq, email) 
-                    VALUES                                  (:customername, :testmachine, :model, :serialnum, :brand, :setupdate, :calidate, :nextcal, :califreq, :email)");
+                    $sql = $conn->prepare("INSERT INTO bbcal1(customername, testmachine, model, serialnum, brand, calidate, nextcal, califreq, email) 
+                    VALUES                                  (:customername, :testmachine, :model, :serialnum, :brand, :calidate, :nextcal, :califreq, :email)");
                     $sql->bindParam(":customername", $customername);
                     $sql->bindParam(":testmachine", $testmachine);
                     $sql->bindParam(":model", $model);
                     $sql->bindParam(":serialnum", $serialnum);
                     $sql->bindParam(":brand", $brand);
-                    $sql->bindParam(":setupdate", $setupdate);
                     $sql->bindParam(":calidate", $calidate);
                     $sql->bindParam(":nextcal", $nextcal);
                     $sql->bindParam(":califreq", $califreq);

@@ -13,21 +13,19 @@ if (isset($_POST['update'])) {
         $model = $_POST['model'];
         $serialnum = $_POST['serialnum'];
         $brand = $_POST['brand'];
-        $setupdate = $_POST['setupdate'];
         $calidate = $_POST['calidate'];
         $nextcal = $_POST['nextcal'];
         $califreq = $_POST['califreq'];
         $email = $_POST['email'];
 
 }
-        $sql = $conn->prepare("UPDATE bbcal1 SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, setupdate = :setupdate, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email WHERE id = :id");
+        $sql = $conn->prepare("UPDATE bbcal1 SET customername = :customername, testmachine = :testmachine, model = :model, serialnum = :serialnum, brand = :brand, calidate = :calidate, nextcal = :nextcal, califreq = :califreq, email = :email WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":customername", $customername);
         $sql->bindParam(":testmachine", $testmachine);
         $sql->bindParam(":model", $model);
         $sql->bindParam(":serialnum", $serialnum);
         $sql->bindParam(":brand", $brand);
-        $sql->bindParam(":setupdate", $setupdate);
         $sql->bindParam(":calidate", $calidate);
         $sql->bindParam(":nextcal", $nextcal);
         $sql->bindParam(":califreq", $califreq);

@@ -99,6 +99,15 @@ body{
 	margin:10px;
   }
   /* บนมุมขวา */
+  button{
+	display:inline-block;
+	width: 3.5rem;
+	height: 3.5rem;
+	border-radius: 80%;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+	transition: .2s ease-in-out;
+	background: url(https://img.icons8.com/external-bearicons-detailed-outline-bearicons/1x/external-export-graphic-design-bearicons-detailed-outline-bearicons.png) center / 65% no-repeat;
+  }
   .button-right{
 	display:flex;
 	align-items: center;
@@ -361,10 +370,35 @@ table{
         min-width: 12.1rem;
     }
 }
+/* SEND BUTTON */
+.send-button{
+	display: inline-flex;
+	align-items: center;
+
+}
+.send-button-btn{
+	display:inline-block;
+		width: 3.5rem;
+		height: 3.5rem;
+		border-radius: 80%;
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		transition: .2s ease-in-out;
+		padding: 1.9rem;
+		background: url(https://cdn-icons-png.flaticon.com/512/25/25304.png) center / 65% no-repeat;
+}
+.send-button .send-button-btn:hover{
+	background-color: #37d165;
+	transform: scale(1.15);
+}
+/* SEND BUTTON */
 /* EXPORT FILE BUTTON */
+
 .export_file{
 	position: relative;
 }
+.export_file-text {
+	margin-left: 1rem;
+  }
 .export_file .export_file-btn{
 		display:inline-block;
 		width: 3.5rem;
@@ -372,10 +406,11 @@ table{
 		border-radius: 80%;
 		box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 		transition: .2s ease-in-out;
+		padding: 2rem;
 		background: url(https://img.icons8.com/external-bearicons-detailed-outline-bearicons/1x/external-export-graphic-design-bearicons-detailed-outline-bearicons.png) center / 65% no-repeat;
 }
 .export_file .export_file-btn:hover{
-		background-color: #fff;
+		background-color: #d5e941;
 		transform: scale(1.15);
 }
 .export_file input{
@@ -425,7 +460,7 @@ table{
 }
 .export_file .export_file-options label:hover{
 		transform: scale(1.05);
-		background-color: #fff;
+		background-color: #bed730;
 		border-radius: .1rem;
 		cursor: pointer;
 }

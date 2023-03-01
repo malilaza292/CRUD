@@ -1,10 +1,6 @@
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php 
-
-    session_start();
-
     require_once "config/db.php";
+    session_start();
 
     if (isset($_GET['delete'])) {
         $delete_id = $_GET['delete'];
@@ -16,98 +12,46 @@
             $_SESSION['success'] = "Data has been deleted succesfully";
             header("refresh:1; url=index.php");
         }
-        if (isset($_GET['upload'])) {
-            $id = $_GET['upload'];
-            $upload =  $conn->query("UPDATE bbcal1 SET status = 'ยังไม่ได้ส่ง' WHERE id = " . $id . "");
-            $upload->execute();
-            header("Location: index.php");
-        } 
         
     }
+    if (isset($_GET['upload'])) {
+        $id = $_GET['upload'];
+        $upload =  $conn->query("UPDATE bbcal1 SET status = 'ยังไม่ได้ส่ง' WHERE id = " . $id . "");
+        $upload->execute();
+        header("Location: index.php");
+    } 
+
+    
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBCALDATA</title>
+    <title>BBCAL DATA</title>
     <!-- CSS only -->
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 
-    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">    
-            <form action="insert.php" method="post" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Company name:</label>
-                    <input type="text" required class="form-control" name="customername">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Machine Name:</label>
-                    <input type="text" required class="form-control" name="testmachine">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Model:</label>
-                    <input type="text" required class="form-control" name="model">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Serial Number:</label>
-                    <input type="text" required class="form-control" name="serialnum">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Brand:</label>
-                    <input type="text" required class="form-control" name="brand">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Calibration Date:</label>
-                    <input type="date" required class="form-control" name="calidate">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Next Calibration:</label>
-                    <input type="date" required class="form-control" name="nextcal">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Calibration Frequency:</label>
-                    <input type="text" required class="form-control" name="califreq">
-                </div>
-                <div class="mb-3">
-                    <label for="customername" class="col-form-label">Email:</label>
-                    <input type="text" required class="form-control" name="email">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="submit" class="btn btn-success">Submit</button>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    </div>
-
-  <!-- Header -->
-<div class="navbar">
+<!-- Header -->
+    <div class="navbar">
     <div class="navbar-left">
         <div class="content">
-        <h1>BBCALDATA</h1>
-        <h1>BBCALDATA</h1>
+        <h1>STATUS</h1>
+        <h1>STATUS</h1>
         </div>
         </div>
     <div class="navbar-right">
         <div class="button-right">
             <div class="justify-content-end add-data">               
-            <a href="nextcal.php" type="button"  class="btn btn-warning">เช็คสถานะ</a>     
+            <a href="index.php" type="button"  class="btn btn-primary">หน้าหลัก</a>     
             </div>        
         </div>
     </div>
@@ -177,7 +121,7 @@
             </thead>
             <tbody>
                 <?php 
-                    $stmt = $conn->query("SELECT * FROM bbcal1");
+                    $stmt = $conn->query("SELECT * FROM bbcal1 WHERE CURRENT_TIMESTAMP BETWEEN datealert AND nextcal");
                     $stmt->execute();
                     $bbcal1 = $stmt->fetchAll();
 

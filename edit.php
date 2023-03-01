@@ -115,10 +115,6 @@
                     <input type="text" value="<?php echo $data['brand']; ?>" required class="form-control" name="brand">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">วันที่ติดตั้ง:</label>
-                    <input type="date" value="<?php echo date('d-m-Y', strtotime( $data['setupdate'])); ?>" required class="form-control" name="setupdate">
-                </div>
-                <div class="mb-3">
                     <label for="customername" class="col-form-label">วันสอบเทียบล่าสุด:</label>
                     <input type="date" value="<?php echo date('d-m-Y', strtotime( $data['calidate'])); ?>" required class="form-control" name="calidate">
                 </div>
