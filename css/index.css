@@ -1,4 +1,3 @@
-/* RAINBOW COLOR */
 body{
 	background-color: rgb(99, 162, 210);
 	margin: auto;
@@ -470,3 +469,6 @@ table{
 }
 
 /* EXPORT FILE BUTTON */
+h2{
+	text-align: center;
+}

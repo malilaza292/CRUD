@@ -1,3 +1,5 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php 
     require_once "config/db.php";
     session_start();
@@ -12,7 +14,7 @@
             $_SESSION['success'] = "Data has been deleted succesfully";
             header("refresh:1; url=index.php");
         }
-
+        
     }
     if (isset($_GET['upload'])) {
         $id = $_GET['upload'];
@@ -21,7 +23,7 @@
         header("Location: index.php");
     } 
 
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +86,7 @@
 
         <main class="table" id="customers_table">
         <section class="table_header">
-            <h1>Customer's Data</h1>
+            <h1>Status</h1>
             <div class="input-group">
                 <input id="search " type="search" placeholder="Search Data..." required autocomplete="off" no-close-icon>
                 <img src="photo/search.svg">
@@ -199,6 +201,8 @@
                     </tr>
                 <?php }  } ?>
         </section>
+        <h2>ข้อมูลนี้จะเเสดงข้อมูลก่อนที่จะมีการสอบเทียบเป็นเวลา 1 เดือน</h2>
+        </h2>
         </main>
     </div>
 
