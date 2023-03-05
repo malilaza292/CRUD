@@ -75,12 +75,10 @@
                     <input type="date" required class="form-control" name="calidate">
                 </div>
                 <div class="mb-3">
-                    <label for="customername" class="col-form-label">Next Calibration:</label>
-                    <input type="date" required class="form-control" name="nextcal">
-                </div>
-                <div class="mb-3">
                     <label for="customername" class="col-form-label">Calibration Frequency:</label>
-                    <input type="text" required class="form-control" name="califreq">
+                    <input type="radio" name="califreq" value="+6 months" checked> 6 months<br>
+                    <input type="radio" name="califreq" value="+1 year"> 1 year<br>
+                    <input type="radio" name="califreq" value="+2 years"> 2 years<br>
                 </div>
                 <div class="mb-3">
                     <label for="customername" class="col-form-label">Email:</label>
@@ -154,7 +152,6 @@
                 <input type="checkbox" id="export_file">
                 <div class="export_file-options">
                     <label>นำข้อมูลออก &nbsp; &#10140;</label>
-                    <label for="export-file" id="toPDF">PDF<img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt=""></label>
                     <label for="export-file" id="toCSV">CSV <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/CsvDelimited001.svg" alt=""></label>
                     <label for="export-file" id="toEXCEL">EXCEL <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt=""></label>
                 </div>
@@ -200,13 +197,7 @@
                           }
                         ?></td>
                         <td><?php echo $user['califreq']; ?></td>
-                        <td style="color:red"><?php 
-                          if ($user['nextcal'] == ''){
-                            echo '';
-                          }else{
-                            echo date('d-m-Y', strtotime($user['nextcal']));
-                          }
-                        ?></td>
+                        <td style="color:red"><?php echo $user['nextcal']; ?></td>
                         <td>
                             <div class="dropdown">
                                 <div class="select">
@@ -239,7 +230,6 @@
                                                     echo "ยี่ห้อ :" . $rows['brand'] . " "  ; 
                                                 }
                                             ?>
-                                                
                                             %20%0A จะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบ โดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบเครื่องมือ 
                                             %20%0A ติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000
                                             %20%0A เบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587
@@ -247,7 +237,7 @@
                                         ส่งอีเมล์
                                     </a>     
 
-                                <a class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a>
+                                <a class="dropdown-items" id="exampleModalLabel" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a>
                                 <a class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</a>
                                 </ul>
                             </div>

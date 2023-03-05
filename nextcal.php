@@ -12,7 +12,7 @@
             $_SESSION['success'] = "Data has been deleted succesfully";
             header("refresh:1; url=index.php");
         }
-        
+
     }
     if (isset($_GET['upload'])) {
         $id = $_GET['upload'];
@@ -21,7 +21,7 @@
         header("Location: index.php");
     } 
 
-    
+
 ?>
 
 <!DOCTYPE html>
@@ -89,6 +89,20 @@
                 <input id="search " type="search" placeholder="Search Data..." required autocomplete="off" no-close-icon>
                 <img src="photo/search.svg">
             </div>
+            <!-- <div class="send-button">
+            <div class="justify-content-end add-data"> 
+            <button  class="send-button-btn" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo" title="เพิ่มข้อมูล"></button>
+            </div>
+            <div class="export_file">
+                <label for="export_file" class="export_file-btn" title="นำข้อมูลออก"></label>
+                <input type="checkbox" id="export_file">
+                <div class="export_file-options">
+                    <label>นำข้อมูลออก &nbsp; &#10140;</label>
+                    <label for="export-file" id="toPDF">PDF<img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt=""></label>
+                    <label for="export-file" id="toCSV">CSV <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/CsvDelimited001.svg" alt=""></label>
+                    <label for="export-file" id="toEXCEL">EXCEL <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt=""></label>
+                </div>
+            </div> -->
         </section>
         <section class="table_body">
             <table>
@@ -102,7 +116,6 @@
                     <th>Calibration Date</th>
                     <th>Calibration Frequency</th>
                     <th>Next Calibration</th>
-                    <th>Email</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -138,7 +151,6 @@
                             echo date('d-m-Y', strtotime($user['nextcal']));
                           }
                         ?></td>
-                        <td><?php echo $user['email']; ?></td>  
                         <td>
                             <div class="dropdown">
                                 <div class="select">
