@@ -1,14 +1,11 @@
 body{
-	background-color: rgb(99, 162, 210);
-	margin: auto;
-	font-family: 'Thai Sarabun', sans-serif;
 	overflow: auto;
-	background: rgb(34,108,91);
 	background: radial-gradient(circle, rgb(106, 128, 177) 0%, rgb(100, 99, 186) 35%, rgb(95, 110, 196) 59%, rgb(103, 150, 217) 100%);
 	animation: gradient 25s ease infinite;
 	background-size: 400% 400%;
 	background-attachment: fixed;
 	min-height: 100vh;
+	min-width: 200vh;
 	justify-content: center;
 }
 @keyframes gradient {
@@ -247,10 +244,11 @@ main.table{
 th {
 	position: sticky;
 	top: 0;
-	background-color: rgb(255, 255, 255);
+	background-color: rgba(40, 119, 209, 0.194);
 	padding: .8rem 1rem;
 	align-items: center;
 	z-index: 2;
+	color: black;
   }
 /* TABLE HEADER */
 /* TABLE HEADER SEARCH */
@@ -330,8 +328,9 @@ th {
 }
 table,th,td{
 	border-collapse: collapse;
-	padding: 1.4rem;
-	text-align: left;
+	text-align: center;
+	line-height: 1.4;
+	padding: 17px;
 }
 tr:nth-child(-n+3) {
 	border-top-left-radius: 10px;
@@ -471,4 +470,43 @@ table{
 /* EXPORT FILE BUTTON */
 h2{
 	text-align: center;
+}
+/* google icon */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 100,
+  'GRAD' -25,
+  'opsz' 48;
+}
+/* a link */
+a {
+	text-decoration: none;
+  }
+.button-success{
+	font-size: 18px;
+	font-weight: 500;
+	padding:12px;
+	margin:-50px;
+	width:350px;
+	background: #ebeef1;
+	cursor:pointer;
+	border:none;
+	border-radius: 50px;
+	color:#00a037;
+	box-shadow: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+				-10px -10px 10px -1px rgba(255, 255, 255, 0.70);
+}
+.button-danger{
+	font-size: 18px;
+	font-weight: 500;
+	padding:12px;
+	margin:-50px;
+	width:350px;
+	cursor:pointer;
+	border:none;
+	border-radius: 50px;
+	color:#ed0000;
+	box-shadow: inset 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+				inset -10px -10px 10px -1px rgba(255, 255, 255, 0.70);
 }

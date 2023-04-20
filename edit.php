@@ -1,5 +1,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 100,
+  'GRAD' -25,
+  'opsz' 98
+}
+</style>
 <?php 
 
     session_start();
@@ -81,7 +92,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1>แก้ไขข้อมูล</h1>
+        <h1><a class="material-symbols-outlined" href="index.php">arrow_back</a>แก้ไขข้อมูล</h1>
         <hr>
         <form action="update.php" method="post" enctype="multipart/form-data">
             <?php

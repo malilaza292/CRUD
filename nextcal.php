@@ -16,13 +16,6 @@
         }
         
     }
-    if (isset($_GET['upload'])) {
-        $id = $_GET['upload'];
-        $upload =  $conn->query("UPDATE bbcal1 SET status = 'ยังไม่ได้ส่ง' WHERE id = " . $id . "");
-        $upload->execute();
-        header("Location: index.php");
-    } 
-
     
 ?>
 
@@ -37,6 +30,7 @@
     <link rel="stylesheet" href="css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
@@ -46,8 +40,8 @@
     <div class="navbar">
     <div class="navbar-left">
         <div class="content">
-        <h1>STATUS</h1>
-        <h1>STATUS</h1>
+        <h1>BBCALDATA</h1>
+        <h1>BBCALDATA</h1>
         </div>
         </div>
     <div class="navbar-right">
@@ -65,7 +59,7 @@
      <div class="wave"></div>
   </div>
 <!-- End Header -->
-    <div class="container md-5">
+    <div class="container-fluid md-5">
         <hr>
         <?php if (isset($_SESSION['success'])) { ?>
             <div class="alert alert-success">
@@ -86,7 +80,7 @@
 
         <main class="table" id="customers_table">
         <section class="table_header">
-            <h1>Status</h1>
+            <h1>&nbsp;&nbsp;&nbsp;Status</h1>
             <div class="input-group">
                 <input id="search " type="search" placeholder="Search Data..." required autocomplete="off" no-close-icon>
                 <img src="photo/search.svg">
@@ -118,6 +112,8 @@
                     <th>Calibration Date</th>
                     <th>Calibration Frequency</th>
                     <th>Next Calibration</th>
+                    <th>Email</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -133,7 +129,7 @@
                     foreach($bbcal1 as $user)  {  
                 ?>
                     <tr>
-                        <td><?php echo $user['customername']; ?></td>
+                        <td style="font-weight:bold"><?php echo $user['customername']; ?></td>
                         <td><?php echo $user['testmachine']; ?></td>
                         <td><?php echo $user['model']; ?></td>
                         <td><?php echo $user['serialnum']; ?></td>
@@ -146,57 +142,25 @@
                           }
                         ?></td>
                         <td><?php echo $user['califreq']; ?></td>
-                        <td style="color:red"><?php 
+                        <td style="color:red;font-weight:bold"><?php 
                           if ($user['nextcal'] == ''){
                             echo '';
                           }else{
                             echo date('d-m-Y', strtotime($user['nextcal']));
                           }
                         ?></td>
-                        <td>
-                            <div class="dropdown">
-                                <div class="select">
-                                    <span>Menu</span>
-                                    <i class="fa fa-chevron-left"></i>
-                                </div>
-                                <input type="hidden" name="option">
-                                <ul class="dropdown-menu">
-                                <a  class="dropdown-items" href="mailto:<?php echo $user['email']; ?>?
-                                            &Subject=(เรียนเพื่อทราบ)
-                                            &body= ชื่อบริษัท  : <?php echo $user['customername']?>
-                                            
-                                        
-                                            <?php
-                                                $customers = $user['customername'];
-                                                $current_date = date("d/m/Y");
-                                                // echo "%20%0A ชื่อเครื่อง %09%09";
-                                                // echo " โมเดล %09%09";
-                                                // echo " รหัสเครื่อง %09%09";
-                                                // customername = '{$customers}'
-                                                $stmt1 = $conn->query("SELECT * FROM bbcal1 WHERE CURRENT_TIMESTAMP BETWEEN datealert AND nextcal and  customername = '{$customers}';");
-                                                $stmt1->execute();
-                                                $project_info = $stmt1->fetchAll();
-                                                foreach($project_info as $rows) {
-                                                    // echo "%20%0A" . $rows['testmachine'] . "%09%09" . $rows['model']  . "%09%09" .  $rows['serialnum'];
-                                                    echo "%20%20%0A ชื่อเครื่อง :" . " " ;
-                                                    echo $rows['testmachine'] . ", &nbsp;&nbsp;"; 
-                                                    echo "โมเดล :". $rows['model'] . ",  &nbsp;&nbsp;"; 
-                                                    echo "รหัสเครื่อง :". $rows['serialnum'] . ",  &nbsp;&nbsp;"; 
-                                                    echo "ยี่ห้อ :" . $rows['brand'] . " "  ; 
-                                                }
-                                            ?>
-                                                
-                                            %20%0A จะมีการสอบเทียบภายในอีก 1 เดือนจึงเเจ้งมาให้ทราบ โดยวันที่ <?php echo $user['nextcal']?> จะมีการสอบเทียบเครื่องมือ 
-                                            %20%0A ติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000
-                                            %20%0A เบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587
-                                            ">
-                                        ส่งอีเมล์
-                                    </a>     
+                        <td><?php echo $user['email']; ?></td>
+                        <td><?php 
+                            if($user['status']==1){
+                               echo '<a style="text-decoration: none" href="status.php?id='.$user['id'].'&status=0" class="button-success">ส่งอีเมล์เเล้ว</a>';
+                            }else{
+                               echo '<a style="text-decoration: none" href="status.php?id='.$user['id'].'&status=1" class="button-danger">ยังไม่ได้ส่ง</a>';
+                            }
+                                ?></td>
 
-                                <a class="dropdown-items" href="edit.php?id=<?php echo $user['id']; ?>">Edit</a>
-                                <a class="delete-btn dropdown-items" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">Delete</a>
-                                </ul>
-                            </div>
+                        <td>
+                        <a class="material-symbols-outlined text-decoration-none" href="mailto:<?php echo $user['email']; ?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']; ?> %20%0Aเครื่อง <?php echo $user['testmachine']; ?> %20%0Aจะมีการสอบเทียบภายใน 1 เดือนจึงเเจ้งมาให้ทราบ %20%0Aซึ่งโดยวันที่ <?php echo $user['nextcal']; ?> จะมีการสอบเทียบ %20%0A%20%0Aสามารถติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587 %20%0A%20%0Aขอบคุณที่ไว้ใจเรา%20%0Aทีมงาน BBCAL" <?php echo $user['id']; ?>>email</a>
+                        <a class="delete-btn material-symbols-outlined text-decoration-none" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">delete</a>
                         </td>
                     </tr>
                 <?php }  } ?>
@@ -207,9 +171,100 @@
     </div>
 
     <!-- JavaScript Bundle with Popper -->
-    <script type="text/javascript" src="js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+function changeStatus(id) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'update_status.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var response = xhr.responseText;
+      if (response == 'success') {
+        // Update the status in the HTML table
+        var statusCell = document.getElementById('status-' + id);
+        statusCell.innerHTML = 'Already sent';
+      } else {
+        alert('Error updating status');
+      }
+    }
+  };
+  xhr.send('id=' + id);
+}
+</script>   
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        
+$(".delete-btn").click(function(e) {
+    var userId = $(this).data('id');
+    e.preventDefault();
+    deleteConfirm(userId);
+})
+function deleteConfirm(userId) {
+    Swal.fire({
+        title: 'โปรดยืนยัน?',
+        text: "ข้อมูลในตารางนี้จะหายไป!",
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'ไม่ข้าทำไม่ได้',
+        confirmButtonText: 'ใช่, ลบเลย ลบเลย!',
+        showLoaderOnConfirm: true,
+        preConfirm: function() {
+            return new Promise(function(resolve) {
+                $.ajax({
+                        url: 'index.php',
+                        type: 'GET',
+                        data: 'delete=' + userId,
+                    })
+                    .done(function() {
+                        Swal.fire({
+                            title: 'success',
+                            text: 'ลบเสร็จสิ้น!',
+                            icon: 'success',
+                        }).then(() => {
+                            document.location.href = 'index.php';
+                        })
+                    })
+                    .fail(function() {
+                        Swal.fire('Oops...', 'Something went wrong with ajax !', 'error')
+                        window.location.reload();
+                    });
+            });
+        },
+    });
+}
+
+/*Dropdown Menu*/
+$('.dropdown').click(function () {
+$(this).attr('tabindex', 1).focus();
+$(this).toggleClass('active');
+$(this).find('.dropdown-menu').slideToggle(300);
+});
+$('.dropdown').focusout(function () {
+$(this).removeClass('active');
+$(this).find('.dropdown-menu').slideUp(300);
+});
+/*End Dropdown Menu*/
+// Search sort table
+const search = document.querySelector('.input-group input'),
+    table_rows = document.querySelectorAll('tbody tr'),
+    table_headings = document.querySelectorAll('thead th');
+
+// 1. Searching for specific data of HTML table
+search.addEventListener('input', searchTable);
+
+function searchTable() {
+    table_rows.forEach((row, i) => {
+        let table_data = row.textContent.toLowerCase(),
+            search_data = search.value.toLowerCase();
+
+        row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+        row.style.setProperty('--delay', i / 25 + 's');
+    })
+}
+        </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

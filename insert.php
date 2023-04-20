@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
                         $(document).ready(function() {
                             Swal.fire({
                                 title:'success',
-                                text: 'Data inserted successfully!',
+                                text: 'เพิ่มข้อมูลเสร็จสิ้น!',
                                 icon: 'success',
                                 timer: 5000,
                                 showConfirmButton: false
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
         </script>";
                         header("location: index.php");
                     } else {
-                        $_SESSION['error'] = "Data has not been inserted successfully";
+                        $_SESSION['error'] = "มีปัญหาในการเพิ่มข้อมูล";
                         header("location: index.php");
                     }
                 }
