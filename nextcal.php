@@ -159,7 +159,14 @@
                                 ?></td>
 
                         <td>
-                        <a class="material-symbols-outlined text-decoration-none" href="mailto:<?php echo $user['email']; ?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']; ?> %20%0Aเครื่อง <?php echo $user['testmachine']; ?> %20%0Aจะมีการสอบเทียบภายใน 1 เดือนจึงเเจ้งมาให้ทราบ %20%0Aซึ่งโดยวันที่ <?php echo $user['nextcal']; ?> จะมีการสอบเทียบ %20%0A%20%0Aสามารถติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587 %20%0A%20%0Aขอบคุณที่ไว้ใจเรา%20%0Aทีมงาน BBCAL" <?php echo $user['id']; ?>>email</a>
+                        <a class="material-symbols-outlined text-decoration-none" 
+                        href="mailto:<?php echo $user['email']; ?>?Subject=(เรียนเพื่อทราบ)&body=ชื่อบริษัท <?php echo $user['customername']; ?> %20%0Aเครื่อง <?php echo $user['testmachine']; ?> 
+                        %20%0Aโมเดล <?php echo $user['model']; ?>
+                        %20%0Aหมายเลขเครื่อง <?php echo $user['serialnum']; ?>
+                        %20%0Aแบรนด์ <?php echo $user['brand']; ?>
+                        %20%0Aจะมีการสอบเทียบภายใน 1 เดือนจึงเเจ้งมาให้ทราบ %20%0Aซึ่งโดยวันที่ <?php echo $user['nextcal']; ?> 
+                        จะมีการสอบเทียบ %20%0A%20%0Aสามารถติดต่อได้ที่ 188/26 หมู่ที่ 3 ต.บางศรีเมือง อ.เมืองนนทบุรี จ.นนทบุรี ประเทศไทย เทศบาลนครนนทบุรี 11000 
+                        %20%0Aเบอร์โทร: 02-881-5586 หรือ FAX: 02-881-5587 %20%0A%20%0Aขอบคุณที่ไว้ใจเรา%20%0Aทีมงาน BBCAL" <?php echo $user['id']; ?>>email</a>
                         <a class="delete-btn material-symbols-outlined text-decoration-none" data-id="<?php echo $user['id']; ?>" href="?delete=<?php echo $user['id']; ?>">delete</a>
                         </td>
                     </tr>
